@@ -1,8 +1,7 @@
 {
-  "name": "skeleton",
+  "name": "aspnetcore-webpack-typescript-skeleton",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "clean:dist": "rimraf ../wwwroot/dist",
     "build": "npm run build:dev",
@@ -13,7 +12,7 @@
     "webpack": "cross-env TS_NODE_PROJECT=tsconfig.json TS_NODE_FAST=true ./node_modules/.bin/webpack"
   },
   "keywords": [],
-  "author": "",
+  "author": "Oliver Brennan <ojb@ojb500.co.uk>",
   "license": "ISC",
   "devDependencies": {
     "@types/webpack": "^3.8.2",
