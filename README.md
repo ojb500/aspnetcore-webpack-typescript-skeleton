@@ -18,5 +18,3 @@
 * Run in IIS Express or in console (to taste)
 * Change CSS or TypeScript
 * Marvel as the page updates before your eyes.
-
-We use a static index.html here but it's not hard to get Webpack to generate this as well.
