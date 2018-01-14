@@ -1,0 +1,20 @@
+﻿{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "lib": [ "dom", "es5", "scripthost", "es2015" ],
+    "target": "es5",
+    "declaration": false
+  },
+  "compileOnSave": true,
+  "include": [
+    "**/*.*"
+  ],
+  "exclude": [
+    "node_modules",
+    "webpack.config.ts"
+  ]
+}

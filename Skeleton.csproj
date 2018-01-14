@@ -1,0 +1,71 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>SH.Web</AssemblyName>
+    <RootNamespace>SH.Web</RootNamespace>
+    <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
+    <TypeScriptCompileBlocked />
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="src\**\*" Exclude="src\node_modules\**\*.*;src\**\*.js;src\**\*.js.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.0.0-rc1-final" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="**\*.resx" />
+    <EmbeddedResource Remove="wwwroot\dist\**" />
+    <None Remove="wwwroot\dist\**" />
+    <TypeScriptCompile Remove="src\**\*.ts" />
+    
+    <Compile Remove="wwwroot\**" />
+    <Content Include="wwwroot\**\*.js;wwwroot\**\*.html;wwwroot\**\*.js.map;wwwroot\**\*.css" />
+  </ItemGroup>
+
+  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <!-- In development, the dist files won't exist on the first run or when cloning to a different machine, so rebuild them if not already present. -->
+    <Message Importance="high" Text="Performing first-run Webpack build..." />
+    <Exec Command="cd $(ProjectDir)src &amp;&amp; yarn install" />
+    <Exec Command="cd $(ProjectDir)src &amp;&amp; npm run build:dev" />
+  </Target>
+  
+  <!--<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    --><!-- As part of publishing, ensure the JS resources are freshly built in production mode --><!--
+    <Exec Command="cd $(ProjectDir)src &amp;&amp; yarn install" />
+    <Exec Command="cd $(ProjectDir)src &amp;&amp; npm run build:prod" />
+    --><!-- Include the newly-built files in the publish output --><!--
+    <ItemGroup>
+      <DistFiles Include="wwwroot\dist\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>-->
+
+  <Target Name="ReleaseRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Release'" >
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec Command="cd $(ProjectDir)src &amp;&amp; yarn install" />
+    <Exec Command="cd $(ProjectDir)src &amp;&amp; npm run build:prod" />
+  </Target>
+
+  <Target Name="CollectWwwroot" BeforeTargets="PrepareForPublish">
+    <ItemGroup>
+      <!-- Inspired by https://github.com/aspnet/JavaScriptServices/blob/0200489bfcbf66c35c17c549498fb122ec9edd56/templates/AureliaSpa/Aurelia.csproj#L72 -->
+      <_WebpackFiles Include="wwwroot\**" />
+      <ContentWithTargetPath Include="@(_WebpackFiles->'%(FullPath)')" RelativePath="%(_WebpackFiles.Identity)" TargetPath="%(_WebpackFiles.Identity)" CopyToPublishDirectory="Always" />
+    </ItemGroup>
+  </Target>
+  
+</Project>
