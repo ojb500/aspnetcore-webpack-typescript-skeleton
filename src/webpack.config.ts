@@ -1,11 +1,11 @@
 ﻿import * as webpack from 'webpack';
 import * as path from 'path';
 
-const PRODUCTION : boolean = process.env.NODE_ENV == 'production';
+const PRODUCTION: boolean = process.env.NODE_ENV == 'production';
 
 const c: webpack.Configuration = {
     entry: { 'main': './main.ts' },
-    
+
     output: {
         path: path.resolve(__dirname, '../wwwroot/dist'),
         filename: 'bundle.js',
@@ -20,8 +20,6 @@ const c: webpack.Configuration = {
             },
             {
                 test: /\.css$/,
-                //use: ExtractTextPlugin.extract({
-                    //fallback: "style-loader",
                 use: [
                     { loader: "style-loader" },
                     {
@@ -29,8 +27,7 @@ const c: webpack.Configuration = {
                             minimize: PRODUCTION
                         }
                     },
-                    ]
-                //})
+                ]
             },
             {
                 test: /\.(jpg|png|svg)$/,
@@ -41,15 +38,6 @@ const c: webpack.Configuration = {
                     },
                 }
             },
-            //{
-            //    test: /\.(jpg|png|svg)$/,
-            //    use: {
-            //        loader: "file-loader",
-            //        options: {
-            //            outputPath: 'dist/'
-            //        }
-            //    },
-            //},
             {
                 test: /\.html$/,
                 loader: 'html-loader'

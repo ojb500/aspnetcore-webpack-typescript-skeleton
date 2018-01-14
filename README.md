@@ -9,6 +9,11 @@
 * **Hot Module Replacement** enables fast iteration during development
 * Great for VSTS / Azure Web Apps.
 
-## Requirements
-* nodejs
-* yarn
+## Quickstart
+
+* Install nodejs and yarn
+* Clone the repo
+* Open the project in VS2017
+* Run in IIS Express or in console (to taste)
+* Change CSS or TypeScript
+* Marvel as the page updates before your eyes

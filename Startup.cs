@@ -34,11 +34,14 @@ namespace SH.Web
                 });
             }
 
+            // Configure your ASP.NET Core app here
+
             app.UseWelcomePage("/hello");
             app.UseFileServer(new FileServerOptions() {
                 EnableDirectoryBrowsing = env.IsDevelopment(),
                 EnableDefaultFiles = true,
             });
+
         }
     }
 }

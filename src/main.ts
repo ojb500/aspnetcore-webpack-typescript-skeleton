@@ -1,11 +1,9 @@
 ﻿import './main.css';
 
-// enable Hot Module Replacement
-
+// opt in to Hot Module Replacement
 const c : any = (<any>module)["hot"];
 if (c)
     c.accept();
 
-window.onload = () => {
-    document.querySelector("div#js").innerHTML = "some HTML";
-}
+// Make an application!
+document.querySelector("div#js").innerHTML = "my HTML";
