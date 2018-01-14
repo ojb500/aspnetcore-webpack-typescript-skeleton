@@ -1,5 +1,7 @@
 ﻿import './main.css';
 
+// enable Hot Module Replacement
+
 const c : any = (<any>module)["hot"];
 if (c)
     c.accept();
